@@ -1,0 +1,48 @@
+@startuml
+actor Customer
+actor Admin
+participant "Car Rental System" as System
+participant "Payment Gateway" as PaymentGateway
+
+== Customer Operations ==
+
+Customer -> System : register(accountDetails)
+System --> Customer : registrationSuccess()
+
+Customer -> System : login(credentials)
+System --> Customer : loginSuccess()
+
+Customer -> System : searchCar(criteria)
+System --> Customer : showAvailableCars()
+
+Customer -> System : viewCarDetails(carId)
+System --> Customer : displayCarDetails()
+
+Customer -> System : rentCar(carId, rentalDetails)
+System -> System : createRentalRecord(rentalDetails)
+System --> Customer : rentalConfirmed(rentalId)
+
+Customer -> System : makePayment(rentalId, paymentInfo)
+System -> PaymentGateway : initiatePayment(amount, paymentInfo)
+PaymentGateway --> System : paymentConfirmation(status)
+System -> System : updateRentalStatus(rentalId, "Paid")
+System --> Customer : paymentSuccessful()
+
+== Admin Operations ==
+
+Admin -> System : login(adminCredentials)
+System --> Admin : adminLoginSuccess()
+
+Admin -> System : manageCars(carData)
+System --> Admin : manageCarsSuccess()
+
+Admin -> System : viewRentalHistory()
+System --> Admin : rentalHistoryList()
+
+Admin -> System : viewPaymentHistory()
+System --> Admin : paymentHistoryList()
+
+Admin -> System : verifyPayment(paymentId)
+System -> System : updatePaymentStatus(paymentId, "Verified")
+System --> Admin : paymentVerifiedSuccess()
+@enduml

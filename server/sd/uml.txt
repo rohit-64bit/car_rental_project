@@ -1,0 +1,42 @@
+@startuml
+' Define external actors
+actor Customer
+actor Admin
+
+' Define processes
+rectangle "Authentication\n(Login / Register)" as Auth
+rectangle "Manage Cars" as ManageCars
+rectangle "Manage Customers" as ManageCustomers
+rectangle "Manage Rentals" as ManageRentals
+rectangle "Manage Servicing" as ManageServicing
+rectangle "Manage Payments" as ManagePayments
+
+' Define data stores
+database "Car Database" as CarDB
+database "Customer Database" as CustomerDB
+database "Rental Database" as RentalDB
+database "Servicing Database" as ServicingDB
+database "Payment Database" as PaymentDB
+
+' Flows
+Customer --> Auth : Login/Register
+Auth --> CustomerDB : Store/Verify Customer Info
+
+Customer --> ManageRentals : Request Rental
+ManageRentals --> RentalDB : Save Rental Data
+
+Customer --> ManagePayments : Make Payment
+ManagePayments --> PaymentDB : Save Payment Record
+
+Admin --> ManageCars : Manage Cars
+ManageCars --> CarDB : Update Car Info
+
+Admin --> ManageCustomers : Manage Customers
+ManageCustomers --> CustomerDB : Update Customer Info
+
+Admin --> ManageRentals : View/Update Rentals
+Admin --> ManagePayments : View Payment Info
+Admin --> ManageServicing : Manage Servicing
+ManageServicing --> ServicingDB : Update Servicing Info
+
+@enduml

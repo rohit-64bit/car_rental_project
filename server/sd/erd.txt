@@ -1,0 +1,52 @@
+@startuml
+entity "Customer" as Customer {
+  * name
+  * email
+  * phone
+  * address
+  * password
+}
+
+entity "Car" as Car {
+  * model
+  * brand
+  * year
+  * mileage
+  * registrationNumber
+  * insuranceExpiry
+  * status
+}
+
+entity "Rental" as Rental {
+  * rentStartDate
+  * rentEndDate
+  * totalAmount
+  * status
+}
+
+entity "Payment" as Payment {
+  * amount
+  * paymentDate
+  * paymentMode
+  * paymentStatus
+}
+
+entity "Service" as Service {
+  * serviceDate
+  * description
+  * cost
+}
+
+entity "Admin" as Admin {
+  * name
+  * email
+  * password
+  * role
+}
+
+' Relationships
+Customer }o--|| Rental : rents
+Car }o--|| Rental : is_rented_in
+Rental ||--|| Payment : has
+Car ||--o{ Service : serviced_by
+@enduml

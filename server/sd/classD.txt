@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Customer {
+  - customer_id : String
+  - name : String
+  - email : String
+  - phone : String
+  - address : String
+  - password : String
+  + register()
+  + login()
+  + searchCars()
+  + rentCar()
+}
+
+class Car {
+  - car_id : String
+  - model : String
+  - brand : String
+  - year : Integer
+  - mileage : Integer
+  - registrationNumber : String
+  - insuranceExpiry : Date
+  - status : String
+  + checkAvailability()
+}
+
+class Rental {
+  - rental_id : String
+  - rentStartDate : Date
+  - rentEndDate : Date
+  - totalAmount : Double
+  - rentalStatus : String
+  + createRental()
+  + closeRental()
+}
+
+class Payment {
+  - payment_id : String
+  - amount : Double
+  - paymentDate : Date
+  - paymentMode : String
+  - paymentStatus : String
+  + makePayment()
+}
+
+class Service {
+  - service_id : String
+  - serviceDate : Date
+  - description : String
+  - cost : Double
+  + scheduleService()
+}
+
+class Admin {
+  - admin_id : String
+  - name : String
+  - email : String
+  - password : String
+  - role : String
+  + manageCars()
+  + manageRentals()
+  + manageCustomers()
+}
+
+' Relationships
+Customer "1" -- "0..*" Rental : places >
+Rental "1" -- "1" Car : involves >
+Rental "1" -- "1" Payment : generates >
+Car "1" -- "0..*" Service : serviced_by >
+Admin "1" -- "0..*" Car : manages >
+
+@enduml

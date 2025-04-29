@@ -1,0 +1,44 @@
+@startuml
+start
+
+partition Customer {
+    :Register or Login;
+    if (Login Successful?) then (yes)
+        :Search for Cars;
+        :View Car Details;
+        if (Car Available?) then (yes)
+            :Select Car and Fill Rental Details;
+            :Submit Rental Request;
+            :Proceed to Payment;
+            :Enter Payment Details;
+            :Make Payment;
+            if (Payment Successful?) then (yes)
+                :Confirm Rental;
+                :Show Rental Confirmation to Customer;
+            else (no)
+                :Show Payment Failure Message;
+            endif
+        else (no)
+            :Show Car Not Available Message;
+        endif
+    else (no)
+        :Show Login Error;
+    endif
+    stop
+}
+
+partition Admin {
+    :Admin Login;
+    if (Admin Login Successful?) then (yes)
+        :Manage Cars (Add / Edit / Delete);
+        :View Rental History;
+        :View Payment History;
+        :Verify Payments;
+        :Update Payment Status to Verified;
+    else (no)
+        :Show Admin Login Error;
+    endif
+    stop
+}
+
+@enduml

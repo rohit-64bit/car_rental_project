@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Customer
+actor Admin
+actor PaymentGateway
+
+rectangle "Car Rental System" {
+
+  Customer --> (Register)
+  Customer --> (Login)
+  Customer --> (Search Cars)
+  Customer --> (Rent Car)
+  Customer --> (Make Payment)
+  Customer --> (View Rental History)
+  
+  Admin --> (Login)
+  Admin --> (Manage Cars)
+  Admin --> (Manage Rentals)
+  Admin --> (Manage Customers)
+  Admin --> (Manage Payments)
+  Admin --> (Manage Services)
+  Admin --> (View Rental History)
+  Admin --> (View Payment History)
+  Admin --> (Search Cars)  
+
+  (Make Payment) --> PaymentGateway : «include»
+}
+
+@enduml
